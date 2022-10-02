@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>COVID-19 HISTORY - JAVASCRIPT</title>
+  </head>
+  <body>
+    <div id="active">Active Cases</div>
+    <div id="new">New Cases</div>
+    <div id="recovered">Recovered cases</div>
+    <div id="total">Total Cases</div>
+    <div id="death">Total Death</div>
+    <div id="test">Total Test</div>
+
+    <button id="Indonesia" value="indonesia">indonesia</button>
+
+    <script>
+      var dataNegara = 'Indonesia';
+      const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '7f8d68d010msh739f142648f3560p1c7f82jsnd8d1bb7d5e94',
+		'X-RapidAPI-Host': 'covid-193.p.rapidapi.com'
+	}
+};
+
+fetch('https://covid-193.p.rapidapi.com/history?country=indonesia&day=2020-09-25', options)
+	.then((response) => response.json())
+	.then((response) => {
+                  document.getElementsByClassName('search').innerHTML = response.parameters.country
+                  document.getElementById('active').innerHTML = response.response[0].cases.active
+                  document.getElementById('new').innerHTML = response.response[0].cases.new
+                  document.getElementById('recovered').innerHTML = response.response[0].cases.recovered
+                  document.getElementById('total').innerHTML = response.response[0].cases.total
+                  document.getElementById('death').innerHTML = response.response[0].deaths.total
+                  document.getElementById('test').innerHTML = response.response[0].test.total
+  })
+	.catch(err => console.error(err));
+
+  var buttonIndonesia = document.querySelector('#indonesia')
+  buttonIndonesia.addEventListener('click', function(event) {
+            event.preventDefault()
+            dataNegara = Indonesia.value
+            fetch(`https://weatherapi-com.p.rapidapi.com/astronomy.json?q=${dataNegara}`, options)
+                .then((response) => response.json())
+                .then((response) => {
+                  document.getElementsByClassName('search').innerHTML = response.parameters.country
+                  document.getElementById('active').innerHTML = response.response[0].cases.active
+                  document.getElementById('new').innerHTML = response.response[0].cases.new
+                  document.getElementById('recovered').innerHTML = response.response[0].cases.recovered
+                  document.getElementById('total').innerHTML = response.response[0].cases.total
+                  document.getElementById('death').innerHTML = response.response[0].deaths.total
+                  document.getElementById('test').innerHTML = response.response[0].tests.total 
+                })
+                .catch(err => console.error(err));
+        })
+    </script>
+      
+  </body>
+</html>
